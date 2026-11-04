@@ -1,0 +1,41 @@
+<!-- Archivo: app/templates/catalogo.html -->
+{% extends "base.html" %}
+
+{% block title %}Catálogo de Productos{% endblock %}
+
+{% block content %}
+<h1>Catálogo de Productos</h1>
+
+<p><a href="{{ url_for('crear_producto') }}">➕ Añadir nuevo producto</a></p>
+
+<ul>
+    {% for prod in lista_productos %}
+    <li style="margin-bottom: 12px;">
+        {%if prod.imagen%}
+        <img src="{{url_for('static',filename='img/uploads/' + prod.imagen)}}" alt="{{prod.nombre}}" width="100">
+        {%else%}
+        <span style="color: gray;">(no imagen)</span>
+        {%endif%}
+        <strong>{{ prod.nombre }}</strong> - {{ prod.precio }} €
+        {% if prod.disponible %}
+        <span style="color: green;">(En stock)</span>
+        {% else %}
+        <span style="color: red;">(Agotado)</span>
+        {% endif %}
+
+        <!-- Enlace GET para ir al formulario de edición -->
+        | <a href="{{ url_for('editar_producto', prod_id=prod.id) }}">Editar</a>
+
+        <!-- Formulario POST para eliminar el registro de forma segura -->
+        <form action="{{ url_for('eliminar_producto', prod_id=prod.id) }}" method="post"
+            style="display:inline; margin-left: 5px;">
+            <button type="submit" onclick="return confirm('¿Seguro que deseas eliminar {{ prod.nombre }}?');">
+                Eliminar
+            </button>
+        </form>
+    </li>
+    {% else %}
+    <li>No hay productos en la base de datos.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!-- Archivo: app/templates/producto_form.html -->
+{% extends "base.html" %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<h2>{{ titulo }}</h2>
+
+<form action="" method="post" enctype="multipart/form-data" novalidate>
+    <!-- Token oculto obligatorio contra ataques CSRF -->
+    {{ form.hidden_tag() }}
+
+    <div style="margin-bottom: 10px;">
+        {{ form.nombre.label }}<br>
+        {{ form.nombre(size=40) }}<br>
+        {% for error in form.nombre.errors %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div style="margin-bottom: 10px;">
+        {{ form.precio.label }}<br>
+        {{ form.precio() }}<br>
+        {% for error in form.precio.errors %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        {{ form.disponible() }} {{ form.disponible.label }}
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        {{form.imagen.label}}
+        {{form.imagen()}}
+        {% for error in form.imagen.errors %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ form.submit() }}
+        <a href="{{ url_for('mostrar_catalogo') }}" style="margin-left: 10px;">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

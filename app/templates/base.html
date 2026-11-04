@@ -1,0 +1,27 @@
+<!-- Archivo: app/templates/base.html -->
+<DOCTYPE html>
+    <html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Mi Tienda Flask{% endblock %}</title>
+    </head>
+
+    <body style="font-family: Arial, sans-serif; margin: 20px;">
+        <nav>
+            <a href="{{ url_for('mostrar_catalogo') }}">Catálogo de Productos</a> |
+            <a href="{{ url_for('crear_producto') }}">➕ Nuevo Producto</a>
+        </nav>
+        <hr>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        <hr>
+        <footer>
+            <p>&copy; 2026 Curso de Flask - Acceso a Datos</p>
+        </footer>
+    </body>
+
+    </html>
