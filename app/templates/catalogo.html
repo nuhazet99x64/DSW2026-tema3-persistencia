@@ -33,6 +33,13 @@
                 Eliminar
             </button>
         </form>
+        <form action="{{ url_for('anadir_al_carrito', prod_id=prod.id) }}" method="post" style="display:inline;
+        margin-left: 10px;">
+            <button type="submit"
+                style="background-color: #28a745; color: white; border: none; padding: 4px 8px; cursor: pointer; border-radius: 3px;">
+                + Añadir al carrito
+            </button>
+        </form>
     </li>
     {% else %}
     <li>No hay productos en la base de datos.</li>

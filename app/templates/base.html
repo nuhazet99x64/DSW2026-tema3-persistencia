@@ -11,9 +11,21 @@
         <nav>
             <a href="{{ url_for('mostrar_catalogo') }}">Catálogo de Productos</a> |
             <a href="{{ url_for('crear_producto') }}">➕ Nuevo Producto</a>
+            <a href="{{ url_for('ver_carrito') }}">
+                🛒 Ver Carrito ({{ session.get('carrito', []) | length }})
+            </a>
         </nav>
         <hr>
-
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+        {% if mensajes %}
+        {% for categoria, mensaje in mensajes %}
+        <div
+            style="padding: 10px; margin-bottom: 15px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 4px;">
+            {{ mensaje }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
         <main>
             {% block content %}{% endblock %}
         </main>

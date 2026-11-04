@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Tu Carrito de la Compra{% endblock %}
+
+{% block content %}
+<h1>🛒 Tu Carrito de la Compra</h1>
+
+{% if productos %}
+<ul>
+    {% for prod in productos %}
+    <li style="margin-bottom: 10px;">
+        <strong>{{ prod.nombre }}</strong> — {{ prod.precio }} €
+    </li>
+    {% endfor %}
+</ul>
+
+<form action="{{ url_for('vaciar_carrito') }}" method="post" style="margin-top: 20px;">
+    <button type="submit"
+        style="background-color: #dc3545; color: white; border: none; padding: 8px 12px; cursor: pointer; border-radius: 4px;">
+        Vaciar Carrito
+    </button>
+</form>
+{% else %}
+<p>Tu carrito está vacío en este momento.</p>
+{% endif %}
+
+<p style="margin-top: 20px;">
+    <a href="{{ url_for('mostrar_catalogo') }}">← Seguir comprando</a>
+</p>
+{% endblock %}
