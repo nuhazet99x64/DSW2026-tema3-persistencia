@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Registro de Usuario{% endblock %}
+
+{% block content %}
+<h2>Crear una Cuenta</h2>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+
+    <div style="margin-bottom: 10px;">
+        {{ form.username.label }}<br>
+        {{ form.username(size=32) }}<br>
+        {% for error in form.username.errors %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div style="margin-bottom: 10px;">
+        {{ form.email.label }}<br>
+        {{ form.email(size=32) }}<br>
+        {% for error in form.email.errors %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div style="margin-bottom: 10px;">
+        {{ form.password.label }}<br>
+        {{ form.password(size=32) }}<br>
+        {% for error in form.password.errors %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        {{ form.confirm_password.label }}<br>
+        {{ form.confirm_password(size=32) }}<br>
+        {% for error in form.confirm_password.errors %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ form.submit() }}
+    </div>
+</form>
+<p>¿Ya tienes cuenta? <a href="{{ url_for('login') }}">Inicia sesión aquí</a>.</p>
+{% endblock %}

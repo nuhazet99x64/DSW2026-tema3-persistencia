@@ -9,20 +9,42 @@
 
     <body style="font-family: Arial, sans-serif; margin: 20px;">
         <nav>
-            <a href="{{ url_for('mostrar_catalogo') }}">Catálogo de Productos</a> |
+            <a href="{{ url_for('mostrar_catalogo') }}">Catálogo de Productos</a>
+
+            {%if current_user.is_authenticated and current_user.es_admin%}
             <a href="{{ url_for('crear_producto') }}">➕ Nuevo Producto</a>
-            <a href="{{ url_for('ver_carrito') }}">
+            {%endif%}
+            {% if current_user.is_authenticated %}
+            | <a href="{{ url_for('ver_carrito') }}">
                 🛒 Ver Carrito ({{ session.get('carrito', []) | length }})
             </a>
+            {% endif %}
+            <div>
+                {% if current_user.is_authenticated %}
+                <span>Hola, <strong>{{ current_user.username }}</strong> ({{ current_user.rol }})</span> |
+                <a href="{{ url_for('perfil') }}">Mi Perfil</a> |
+                <a href="{{ url_for('logout') }}" style="color: #dc3545;">Cerrar Sesión</a>
+                {% else %}
+                <a href="{{ url_for('login') }}">Iniciar Sesión</a> |
+                <a href="{{ url_for('registro') }}">Registrarse</a>
+                {% endif %}
+            </div>
         </nav>
         <hr>
         {% with mensajes = get_flashed_messages(with_categories=true) %}
         {% if mensajes %}
         {% for categoria, mensaje in mensajes %}
+        {% if categoria == 'error' %}
+        <div
+            style="padding: 10px; margin-bottom: 15px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 4px;">
+            {{ mensaje }}
+        </div>
+        {% else %}
         <div
             style="padding: 10px; margin-bottom: 15px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 4px;">
             {{ mensaje }}
         </div>
+        {% endif %}
         {% endfor %}
         {% endif %}
         {% endwith %}

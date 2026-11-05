@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Mi Perfil{% endblock %}
+
+{% block content %}
+<h2>Ficha de Perfil de Usuario</h2>
+<div style="border: 1px solid #ccc; padding: 15px; border-radius: 6px; max-width: 400px;">
+    <p><strong>ID de Usuario:</strong> {{ current_user.id }}</p>
+    <p><strong>Nombre de usuario:</strong> {{ current_user.username }}</p>
+    <p><strong>Correo electrónico:</strong> {{ current_user.email }}</p>
+    <p>
+        <strong>Rol asignado:</strong>
+        {% if current_user.es_admin %}
+        <span
+            style="background-color: #dc3545; color: white; padding: 2px 6px; border-radius: 4px;">Administrador</span>
+        {% else %}
+        <span style="background-color: #007bff; color: white; padding: 2px 6px; border-radius: 4px;">Cliente</span>
+        {% endif %}
+    </p>
+</div>
+{% endblock %}
