@@ -14,7 +14,7 @@
     {% endfor %}
 </ul>
 
-<form action="{{ url_for('vaciar_carrito') }}" method="post" style="margin-top: 20px;">
+<form action="{{ url_for('public.vaciar_carrito') }}" method="post" style="margin-top: 20px;">
     <button type="submit"
         style="background-color: #dc3545; color: white; border: none; padding: 8px 12px; cursor: pointer; border-radius: 4px;">
         Vaciar Carrito
@@ -25,6 +25,6 @@
 {% endif %}
 
 <p style="margin-top: 20px;">
-    <a href="{{ url_for('mostrar_catalogo') }}">← Seguir comprando</a>
+    <a href="{{ url_for('public.mostrar_catalogo') }}">← Seguir comprando</a>
 </p>
 {% endblock %}

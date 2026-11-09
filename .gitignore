@@ -5,6 +5,7 @@
 .venv/
 venv/
 env/
+app/static/img/uploads/*
 
 # =========================
 # Archivos compilados de Python

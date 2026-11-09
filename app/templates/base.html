@@ -9,24 +9,24 @@
 
     <body style="font-family: Arial, sans-serif; margin: 20px;">
         <nav>
-            <a href="{{ url_for('mostrar_catalogo') }}">Catálogo de Productos</a>
+            <a href="{{ url_for('public.mostrar_catalogo') }}">Catálogo de Productos</a>
 
             {%if current_user.is_authenticated and current_user.es_admin%}
-            <a href="{{ url_for('crear_producto') }}">➕ Nuevo Producto</a>
+            <a href="{{ url_for('admin.crear_producto') }}">➕ Nuevo Producto</a>
             {%endif%}
             {% if current_user.is_authenticated %}
-            | <a href="{{ url_for('ver_carrito') }}">
+            | <a href="{{ url_for('public.ver_carrito') }}">
                 🛒 Ver Carrito ({{ session.get('carrito', []) | length }})
             </a>
             {% endif %}
             <div>
                 {% if current_user.is_authenticated %}
                 <span>Hola, <strong>{{ current_user.username }}</strong> ({{ current_user.rol }})</span> |
-                <a href="{{ url_for('perfil') }}">Mi Perfil</a> |
-                <a href="{{ url_for('logout') }}" style="color: #dc3545;">Cerrar Sesión</a>
+                <a href="{{ url_for('auth.perfil') }}">Mi Perfil</a> |
+                <a href="{{ url_for('auth.logout') }}" style="color: #dc3545;">Cerrar Sesión</a>
                 {% else %}
-                <a href="{{ url_for('login') }}">Iniciar Sesión</a> |
-                <a href="{{ url_for('registro') }}">Registrarse</a>
+                <a href="{{ url_for('auth.login') }}">Iniciar Sesión</a> |
+                <a href="{{ url_for('auth.registro') }}">Registrarse</a>
                 {% endif %}
             </div>
         </nav>

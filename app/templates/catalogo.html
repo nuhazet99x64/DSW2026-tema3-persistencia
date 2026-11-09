@@ -9,13 +9,13 @@
 {% if ultimo_visto %}
 <div style="background-color: #fff3cd; color: #856404; padding: 10px; border: 1px solid #ffeeba; margin-bottom: 15px;">
     Último producto que visitaste: <strong>{{ ultimo_visto }}</strong>
-    | <a href="{{ url_for('limpiar_historial') }}" style="color: #856404;">Borrar rastro</a>
+    | <a href="{{ url_for('public.limpiar_historial') }}" style="color: #856404;">Borrar rastro</a>
 </div>
 {% endif %}
 
 <!-- Solo el administrador ve el botón superior de crear producto -->
 {% if current_user.is_authenticated and current_user.es_admin %}
-<p><a href="{{ url_for('crear_producto') }}">+ Añadir nuevo producto</a></p>
+<p><a href="{{ url_for('admin.crear_producto') }}">+ Añadir nuevo producto</a></p>
 {% endif %}
 <ul>
     {% for prod in lista_productos %}
@@ -34,7 +34,7 @@
         {% if prod.disponible %}
         <span style="color: green;">(En stock)</span>
         <!-- Formulario para añadir al carrito (si es anónimo, @login_required lo llevará al login) -->
-        <form action="{{ url_for('anadir_al_carrito', prod_id=prod.id) }}" method="post"
+        <form action="{{ url_for('public.anadir_al_carrito', prod_id=prod.id) }}" method="post"
             style="display:inline; margin-left: 10px;">
             <button type="submit"
                 style="background-color: #28a745; color: white; border: none; padding: 4px 8px; cursor: pointer; border-radius: 3px;">
@@ -47,8 +47,8 @@
 
         <!-- Controles CRUD exclusivos para el rol 'admin' -->
         {% if current_user.is_authenticated and current_user.es_admin %}
-        | <a href="{{ url_for('editar_producto', prod_id=prod.id) }}">Editar</a>
-        <form action="{{ url_for('eliminar_producto', prod_id=prod.id) }}" method="post"
+        | <a href="{{ url_for('admin.editar_producto', prod_id=prod.id) }}">Editar</a>
+        <form action="{{ url_for('admin.eliminar_producto', prod_id=prod.id) }}" method="post"
             style="display:inline; margin-left: 5px;">
             <button type="submit" onclick="return confirm('¿Seguro que deseas eliminar {{ prod.nombre }}?');">
                 Eliminar
